@@ -109,6 +109,7 @@ class DataSource {
     //   'email': email,
     // };
     final hashedPassword = hashPassword(password);
+    print(hashedPassword);
     Map<String, dynamic> params = {};
     params['email'] = email;
     params['password'] = hashedPassword;
@@ -123,6 +124,19 @@ class DataSource {
     }
     // simply returning the whatever the the users
     // we will get from the MySQL database
+    return users;
+  }
+
+  ///Fetches user table fields from users table in our database
+  Future<List<DatabaseModel>> fetchUsers() async {
+    const sqlQuery = 'SELECT * FROM users;';
+    // executing our sqlQuery
+    final result = await sqlClient.execute(sqlQuery);
+
+    final users = <DatabaseModel>[];
+    for (final row in result.rows) {
+      users.add(DatabaseModel.fromRowAssoc(row.assoc()));
+    }
     return users;
   }
 
