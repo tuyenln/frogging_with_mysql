@@ -1,6 +1,7 @@
 import 'package:dart_frog/dart_frog.dart';
 import 'package:frogging/database/sql_client.dart';
 import 'package:frogging/source/data_source.dart';
+import 'package:frogging/source/package_source.dart';
 
 /// Middleware ar use for the dependency injection
 Handler middleware(Handler handler) {
@@ -22,5 +23,15 @@ Middleware injectionHandler() {
     );
   };
 }
+
+// Middleware injectionHandler() {
+//   return (handler) {
+//     return handler.use(
+//       provider<PackageSource>(
+//         (context) => PackageSource(context.read<MySQLClient>()),
+//       ),
+//     );
+//   };
+// }
 
 //No need to panic we are using provider
